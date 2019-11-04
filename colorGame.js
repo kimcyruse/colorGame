@@ -61,8 +61,8 @@ easyBtn.addEventListener("click", function(){
         } 
     }
 
-    // reset the h1 background color to default #232323
-    h1.style.backgroundColor = "#232323";
+    // reset the h1 background color to default
+    h1.style.backgroundColor = "steelblue";
 
     // reset messageDisplay
     messageDisplay.textContent = "";
@@ -90,8 +90,8 @@ hardBtn.addEventListener("click", function(){
         squares[i].style.display = "block";
     }
 
-    // reset the h1 background color to default #232323
-    h1.style.backgroundColor = "#232323";
+    // reset the h1 background color to default
+    h1.style.backgroundColor = "steelblue";
 
     // reset messageDisplay
     messageDisplay.textContent = "";
@@ -118,8 +118,8 @@ resetButton.addEventListener("click", function(){
         squares[i].style.backgroundColor = colors[i];
     }
 
-    // reset the h1 background color to default #232323
-    h1.style.backgroundColor = "#232323";
+    // reset the h1 background color to default
+    h1.style.backgroundColor = "steelblue";
 
     // reset messageDisplay
     messageDisplay.textContent = "";

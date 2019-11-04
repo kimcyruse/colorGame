@@ -1,31 +1,92 @@
 body {
-    background-color: #232323;
+    background: #232323;
+    /* to get rid of space around it */
+    margin: 0;
+    font-family: "Montserrat", "Avenir";
 }
 
 h1 {
     color: white;
+    font-weight: normal;
     text-align: center;
+    line-height: 1.1;
+    background: steelblue;
+    /* to get rid of space around it */
+    margin: 0;
+    text-transform: uppercase;
+    /* add 20px space on top and bottom */
+    padding: 20px 0;
 }
 
 .square {
     width: 30%;
     background: purple;
     padding-bottom: 30%;
+    /* to set margin of 1.66% around each squares */
     margin: 1.66%;
+    /* to float to left */
     float: left;
+    /* to make rounded corners to squares*/
+    border-radius: 15%;
+    /* take 0.6s transition when BACKGROUND changes */
+    transition: background 0.6s;
+    /* to be browser friendly - to work on other browser */
+    /* browser prefixes */
+    /* safari */
+    -webkit-transition: background 0.6s;
+    /* mozilla */
+    -moz-transition: background 0.6s;
+
 }
 
 .selected{
-    background-color: blue;
+    color: white;
+    background: steelblue;
 }
 
 #container {
     width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 #stripe {
     background: white;
     height: 30px;
     text-align: center;
+}
+
+#colorDisplay{
+    font-size: 200%;
+}
+
+#messageDisplay {
+    display: inline-block;
+    /* gives the span 20% width of the containing element */
+    width: 20%;
+}
+
+button {
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    /* would take up 100% of the containing element*/
+    height: 100%;
+    font-weight: 700;
+    color: steelblue;
+    letter-spacing: 1px;
+    /* inherit the font size */
+    font-size: inherit;
+    /* takes 0.3 second to transition ALL changes to button */
+    transition: all 0.3s;
+    /* to be browser friendly - to work on other browser */
+    /* browser prefixes */
+    /* safari */
+    -webkit-transition: all 0.3s;
+    /* mozilla */
+    -moz-transition: all 0.3s;
+}
+
+button:hover{
+    color: white;
+    background: steelblue;
 }
