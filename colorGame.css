@@ -73,6 +73,8 @@ button {
     height: 100%;
     font-weight: 700;
     color: steelblue;
+    /* removes the outline around the button when clicked */
+    outline: none;
     letter-spacing: 1px;
     /* inherit the font size */
     font-size: inherit;

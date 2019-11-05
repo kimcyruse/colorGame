@@ -1,3 +1,4 @@
+// <------------------------------VARIABLES----------------------------------->
 // variable to keep track of how many squares (initial 6)
 var numSquares = 6;
 //creates an array of 6 random colors
@@ -5,15 +6,37 @@ var colors = generateRandomColors(numSquares);
 //pick a random color from the array
 var pickedColor = pickColor();
 
-// SELECTORS
+// <------------------------------SELECTORS----------------------------------->
 var squares = document.querySelectorAll(".square");
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.getElementById("messageDisplay");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
-var easyBtn = document.getElementById("easyBtn");
-var hardBtn = document.getElementById("hardBtn");
+// for Easy and Hard buttons
+var modeButtons = document.querySelectorAll(".mode");
 
+// <------------------------------EVENTS----------------------------------->
+
+// loops through the modeButtons to set their eventListener
+for(var i = 0; i < modeButtons.length; i++){
+    modeButtons[i].addEventListener("click", function(){
+        // removes .seleceted - to make sure both buttons are not selected
+        modeButtons[0].classList.remove("selected");
+        modeButtons[1].classList.remove("selected");
+        // adds .selected if one of the button is selected
+        this.classList.add("selected");
+        // shorter way to set numSquares
+        // if textContent is "Easy" numSquares is 3 else 6
+        this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
+        reset();
+    });
+}
+
+resetButton.addEventListener("click", function(){
+    reset();
+});
+
+// sets the colorDisplay text to the pickedColor
 colorDisplay.textContent = pickedColor;
 
 for(var i = 0; i < squares.length; i++){
@@ -37,98 +60,8 @@ for(var i = 0; i < squares.length; i++){
     });
 }
 
-// EVENTS
-easyBtn.addEventListener("click", function(){
-    // add classList .selected
-    easyBtn.classList.add("selected");
-    // removes classList .selected
-    hardBtn.classList.remove("selected");
-    // sets numSquares to 3
-    numSquares = 3;
-    // generate 3 new colors array for easy mode
-    colors = generateRandomColors(numSquares);
-    // sets new pickedColor
-    pickedColor = pickColor();
-    // changes the colorDisplay text for new pickedColor
-    colorDisplay.textContent = pickedColor;
-    // loops to set 3 new colors to squares
-    for(var i = 0; i < squares.length; i++){
-        if(colors[i]){
-            // change each color to match given color
-            squares[i].style.backgroundColor = colors[i];
-        }else{
-            squares[i].style.display = "none";
-        } 
-    }
+// <------------------------------FUNCTIONS----------------------------------->
 
-    // reset the h1 background color to default
-    h1.style.backgroundColor = "steelblue";
-
-    // reset messageDisplay
-    messageDisplay.textContent = "";
-
-    // reset resetButton to "new Colors"
-    resetButton.textContent = "New Colors";
-
-});
-
-hardBtn.addEventListener("click", function(){
-    hardBtn.classList.add("selected");
-    easyBtn.classList.remove("selected");
-    // sets numSquares to 6
-    numSquares = 6;
-    // generate 6 new colors array for hard mode
-    colors = generateRandomColors(numSquares);
-    // sets new pickedColor
-    pickedColor = pickColor();
-    // changes the colorDisplay text for new pickedColor
-    colorDisplay.textContent = pickedColor;
-    // loops to set 6 new colors to squares
-    for(var i = 0; i < squares.length; i++){
-        // change each color to match given color
-        squares[i].style.backgroundColor = colors[i];
-        squares[i].style.display = "block";
-    }
-
-    // reset the h1 background color to default
-    h1.style.backgroundColor = "steelblue";
-
-    // reset messageDisplay
-    messageDisplay.textContent = "";
-
-    // reset resetButton to "new Colors"
-    resetButton.textContent = "New Colors";
-
-});
-
-
-
-resetButton.addEventListener("click", function(){
-    // generate all new random colors
-    colors = generateRandomColors(numSquares);
-
-    // pick a new random color from array
-    pickedColor = pickColor();
-
-    // sets new colorDisplay based on new picked color
-    colorDisplay.textContent = pickedColor;
-
-    // loop to change the colors of the square again
-    for(var i = 0; i < squares.length; i++){
-        squares[i].style.backgroundColor = colors[i];
-    }
-
-    // reset the h1 background color to default
-    h1.style.backgroundColor = "steelblue";
-
-    // reset messageDisplay
-    messageDisplay.textContent = "";
-
-    // reset resetButton to "new Colors"
-    resetButton.textContent = "New Colors";
-});
-
-// FUNCTIONS
 function changeColors(color){
     //loop through all squares
     for(var i = 0; i < squares.length; i++){
@@ -169,5 +102,38 @@ function randomColor(){
     var b = Math.floor(Math.random() * 256);
 
     return "rgb(" + r + ", " + g + ", " + b + ")";
+
+}
+
+// function that resets the game used by resetButton, modeButton[0], modeButton[1]
+function reset(){
+    // generate new colors
+    colors = generateRandomColors(numSquares);
+    // sets new pickedColor
+    pickedColor = pickColor();
+    // changes the colorDisplay text for new pickedColor
+    colorDisplay.textContent = pickedColor;
+    // loops to set new colors to squares
+    for(var i = 0; i < squares.length; i++){
+        // checks if theres color proceed
+        if(colors[i]){
+            // make sures the square is displayed
+            squares[i].style.display = "block";
+            // change each color to match given color
+            squares[i].style.backgroundColor = colors[i];
+        }else{
+            // hides other squares if theres no color
+            squares[i].style.display = "none";
+        } 
+    }
+
+    // reset the h1 background color to default
+    h1.style.backgroundColor = "steelblue";
+
+    // reset messageDisplay
+    messageDisplay.textContent = "";
+
+    // reset resetButton to "new Colors"
+    resetButton.textContent = "New Colors";
 
 }
