@@ -1,10 +1,10 @@
 // <------------------------------VARIABLES----------------------------------->
 // variable to keep track of how many squares (initial 6)
 var numSquares = 6;
-//creates an array of 6 random colors
-var colors = generateRandomColors(numSquares);
-//pick a random color from the array
-var pickedColor = pickColor();
+//creates an array for colors
+var colors = [];
+//creates a variable for a random picked color
+var pickedColor;
 
 // <------------------------------SELECTORS----------------------------------->
 var squares = document.querySelectorAll(".square");
@@ -17,48 +17,12 @@ var modeButtons = document.querySelectorAll(".mode");
 
 // <------------------------------EVENTS----------------------------------->
 
-// loops through the modeButtons to set their eventListener
-for(var i = 0; i < modeButtons.length; i++){
-    modeButtons[i].addEventListener("click", function(){
-        // removes .seleceted - to make sure both buttons are not selected
-        modeButtons[0].classList.remove("selected");
-        modeButtons[1].classList.remove("selected");
-        // adds .selected if one of the button is selected
-        this.classList.add("selected");
-        // shorter way to set numSquares
-        // if textContent is "Easy" numSquares is 3 else 6
-        this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
-        reset();
-    });
-}
+// MAIN
+init();
 
 resetButton.addEventListener("click", function(){
     reset();
 });
-
-// sets the colorDisplay text to the pickedColor
-colorDisplay.textContent = pickedColor;
-
-for(var i = 0; i < squares.length; i++){
-    //add initial colors to squares
-    squares[i].style.backgroundColor = colors[i];
-
-    //add click listeners to squares
-    squares[i].addEventListener("click", function(){
-        // grab color of clicked square
-        var clickedColor = this.style.backgroundColor;
-        //compare cliked color to pickedColor
-        if(clickedColor === pickedColor){
-            messageDisplay.textContent = "Correct!";
-            changeColors(clickedColor);
-            h1.style.backgroundColor = clickedColor;
-            resetButton.textContent = "Play Again?";
-        }else{
-            messageDisplay.textContent = "Try Again!";
-            this.style.backgroundColor = "#232323";
-        }
-    });
-}
 
 // <------------------------------FUNCTIONS----------------------------------->
 
@@ -136,4 +100,53 @@ function reset(){
     // reset resetButton to "new Colors"
     resetButton.textContent = "New Colors";
 
+}
+
+function init(){
+    // set up mode listeners
+    setUpModeButtons();
+
+    // sets up squares listeners
+    setUpSquares();
+
+    // then runs reset function
+    reset();
+}
+
+function setUpSquares(){
+    // loops through the squares to set their eventListener
+    for(var i = 0; i < squares.length; i++){
+        //add click listeners to squares
+        squares[i].addEventListener("click", function(){
+            // grab color of clicked square
+            var clickedColor = this.style.backgroundColor;
+            //compare cliked color to pickedColor
+            if(clickedColor === pickedColor){
+                messageDisplay.textContent = "Correct!";
+                changeColors(clickedColor);
+                h1.style.backgroundColor = clickedColor;
+                resetButton.textContent = "Play Again?";
+            }else{
+                messageDisplay.textContent = "Try Again!";
+                this.style.backgroundColor = "#232323";
+            }
+        });
+    }
+}
+
+function setUpModeButtons(){
+    // loops through the modeButtons to set their eventListener
+    for(var i = 0; i < modeButtons.length; i++){
+        modeButtons[i].addEventListener("click", function(){
+            // removes .seleceted - to make sure both buttons are not selected
+            modeButtons[0].classList.remove("selected");
+            modeButtons[1].classList.remove("selected");
+            // adds .selected if one of the button is selected
+            this.classList.add("selected");
+            // shorter way to set numSquares
+            // if textContent is "Easy" numSquares is 3 else 6
+            this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
+            reset();
+        });
+    }
 }
